@@ -51,7 +51,7 @@ const Board = (size = DEFAULT_SIZE) => {
             newPosition[1] >= 0 &&
             newPosition[1] <= this.size
           ) {
-            connections.push(newPosition);
+            connections.push(this.findNode(newPosition));
           }
         });
 
