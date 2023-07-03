@@ -1,4 +1,5 @@
 import Node from './node';
+import { possibleKnightMoves } from './knight';
 
 const DEFAULT_SIZE = 8;
 
@@ -26,6 +27,28 @@ const Board = (size = DEFAULT_SIZE) => {
   return {
     nodes,
     size,
+    setConnections() {
+      this.nodes.forEach((node) => {
+        const connections = [];
+        possibleKnightMoves.forEach((move) => {
+          const newPosition = [...node.position];
+          newPosition[0] += move.verticalDifference;
+          newPosition[1] += move.horizontalDifference;
+
+          if (
+            newPosition[0] >= 0 &&
+            newPosition[0] <= this.size &&
+            newPosition[1] >= 0 &&
+            newPosition[1] <= this.size
+          ) {
+            connections.push(newPosition);
+          }
+        });
+
+        // eslint-disable-next-line no-param-reassign
+        node.connections = connections;
+      });
+    },
   };
 };
 
