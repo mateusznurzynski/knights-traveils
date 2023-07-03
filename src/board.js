@@ -27,6 +27,16 @@ const Board = (size = DEFAULT_SIZE) => {
   return {
     nodes,
     size,
+    findNode(value) {
+      if (!Array.isArray(value) || value.length !== 2) {
+        return false;
+      }
+      const rowNumber = value[1];
+      const columnNumber = value[0] * this.size;
+      const index = rowNumber + columnNumber;
+
+      return this.nodes[index];
+    },
     setConnections() {
       this.nodes.forEach((node) => {
         const connections = [];
