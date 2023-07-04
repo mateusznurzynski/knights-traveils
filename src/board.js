@@ -74,13 +74,14 @@ const Board = (size = DEFAULT_SIZE) => {
       queue.shift();
       const startNode = this.findNode(startPosition);
       visited.push(startPosition);
-      console.log(startPosition, parents);
 
       if (
         startPosition[0] === endPosition[0] &&
         startPosition[1] === endPosition[1]
       ) {
-        return [...parents, startPosition];
+        const response = [...parents, startPosition];
+        const responseString = `The shortest path is: ${response.join(' => ')}`;
+        return responseString;
       }
 
       startNode.connections.forEach((connection) => {
