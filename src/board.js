@@ -1,5 +1,5 @@
 import Node from './node';
-import { possibleKnightMoves } from './knight';
+import { possibleKnightMoves, Knight } from './knight';
 
 const DEFAULT_SIZE = 8;
 
@@ -47,9 +47,9 @@ const Board = (size = DEFAULT_SIZE) => {
 
           if (
             newPosition[0] >= 0 &&
-            newPosition[0] <= this.size &&
+            newPosition[0] <= this.size - 1 &&
             newPosition[1] >= 0 &&
-            newPosition[1] <= this.size
+            newPosition[1] <= this.size - 1
           ) {
             connections.push(this.findNode(newPosition));
           }
@@ -58,6 +58,58 @@ const Board = (size = DEFAULT_SIZE) => {
         // eslint-disable-next-line no-param-reassign
         node.connections = connections;
       });
+    },
+
+    setKnight(position = [0, 1]) {
+      this.knight = Knight(position);
+    },
+
+    findShortestWay(
+      startPosition,
+      endPosition,
+      parents = [],
+      visited = [],
+      queue = []
+    ) {
+      queue.shift();
+      const startNode = this.findNode(startPosition);
+      visited.push(startPosition);
+      console.log(startPosition, parents);
+
+      if (
+        startPosition[0] === endPosition[0] &&
+        startPosition[1] === endPosition[1]
+      ) {
+        return [...parents, startPosition];
+      }
+
+      startNode.connections.forEach((connection) => {
+        if (
+          !visited.find((position) => {
+            if (
+              position[0] === connection.position[0] &&
+              position[1] === connection.position[1]
+            ) {
+              return true;
+            }
+          })
+        ) {
+          queue.push({
+            position: connection.position,
+            parents: [...parents, startPosition],
+          });
+        }
+      });
+
+      while (queue.length > 0) {
+        return this.findShortestWay(
+          queue[0].position,
+          endPosition,
+          queue[0].parents,
+          visited,
+          queue
+        );
+      }
     },
   };
 };

@@ -3,6 +3,7 @@ import Board from './board';
 
 const testBoard = Board(8);
 testBoard.setConnections();
+testBoard.setKnight();
 
 console.log(testBoard);
-console.log(testBoard.findNode([2, 5]));
+console.log(testBoard.findShortestWay([0, 1], [0, 0]));
