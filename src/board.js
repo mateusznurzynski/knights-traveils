@@ -92,6 +92,7 @@ const Board = (size = DEFAULT_SIZE) => {
             ) {
               return true;
             }
+            return false;
           })
         ) {
           queue.push({
@@ -101,7 +102,7 @@ const Board = (size = DEFAULT_SIZE) => {
         }
       });
 
-      while (queue.length > 0) {
+      if (queue.length > 0) {
         return this.findShortestWay(
           queue[0].position,
           endPosition,
@@ -110,6 +111,7 @@ const Board = (size = DEFAULT_SIZE) => {
           queue
         );
       }
+      return false;
     },
   };
 };
