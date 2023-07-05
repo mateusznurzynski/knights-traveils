@@ -55,7 +55,6 @@ const Board = (size = DEFAULT_SIZE) => {
           }
         });
 
-        // eslint-disable-next-line no-param-reassign
         node.connections = connections;
       });
     },
