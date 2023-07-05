@@ -80,7 +80,9 @@ const Board = (size = DEFAULT_SIZE) => {
         startPosition[1] === endPosition[1]
       ) {
         const response = [...parents, startPosition];
-        const responseString = `The shortest path is: ${response.join(' => ')}`;
+        const responseString = `The shortest path is: ${response.join(
+          ' => '
+        )}, ${response.length - 1} jumps in total`;
         return responseString;
       }
 
